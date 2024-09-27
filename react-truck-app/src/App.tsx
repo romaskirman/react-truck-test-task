@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Truck, Product } from './types';
 import ProductCard from './components/ProductCard';
-import TruckSelector from './components/TruckSelector';
-import TruckDetails from './components/TruckDetails';
+import TruckList from './components/TruckList';
 //import './App.scss';
-//import ProductList from './components/ProductList';
 
 const trucksData = [
     { id: 'truck1', name: 'Truck 1', maxWeight: 10000, currentWeight: 0 },
@@ -46,7 +44,7 @@ const App = () => {
                     selectedTruck.currentWeight + product.weight * quantity,
             };
             setTrucks(
-                trucks.map((t) => (t.id === selectedTruck.id ? updatedTruck : t))
+                trucks.map((truck) => (truck.id === selectedTruck.id ? updatedTruck : truck))
             );
         }
     };
@@ -57,10 +55,10 @@ const App = () => {
 
     const handleCreateTruck = () => {
 
-        const newTruckId = 'truck' + (trucks.length + 1).toString();
+        const newTruckId = 'truck ' + (trucks.length + 1).toString();
         const newTruck: Truck = {
             id: newTruckId,
-            name: 'Truck' + (trucks.length + 1).toString(),
+            name: 'Truck ' + (trucks.length + 1).toString(),
             maxWeight: 10000,
             currentWeight: 0,
         };
@@ -69,25 +67,30 @@ const App = () => {
     };
 
     const handleDeleteTruck = (truckId: string) => {
-        setTrucks(trucks.filter((t) => t.id !== truckId));
+        setTrucks(trucks.filter((truck) => truck.id !== truckId));
         setSelectedTruck(null);
     };
 
     return (
         <div className="app">
             <header>
-                <TruckSelector
-                    selectedTruck={selectedTruck}
-                    allTrucks={trucks}
-                    onSelectTruck={handleSelectTruck}
-                    onCreateTruck={handleCreateTruck}
-                    onDeleteTruck={handleDeleteTruck}
-                />
+                <button onClick={handleCreateTruck}>Create Truck</button>
+                {selectedTruck && (                    
+                    <div className="selected-truck-details">                        
+                        <h2>Selected truck: {selectedTruck.name}</h2>
+                        <p>
+                            Current Weight: {selectedTruck.currentWeight} kg / {selectedTruck.maxWeight} kg
+                        </p>                       
+                    </div>                    
+                )}
             </header>
             <main>
-                {selectedTruck && (
-                    <TruckDetails truck={selectedTruck} />
-                )}
+                <TruckList
+                    allTrucks={trucks}
+                    onSelectTruck={handleSelectTruck}
+                    onDeleteTruck={handleDeleteTruck}
+                />
+                
                 <div className="product-catalog">
                     <h2>Product Catalog</h2>
                     <div className="product-list">
