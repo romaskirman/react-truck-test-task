@@ -46,6 +46,7 @@ const App = () => {
             setTrucks(
                 trucks.map((truck) => (truck.id === selectedTruck.id ? updatedTruck : truck))
             );
+            setSelectedTruck(updatedTruck);
         }
     };
 
@@ -87,6 +88,7 @@ const App = () => {
             <main>
                 <TruckList
                     allTrucks={trucks}
+                    selectedTruck={selectedTruck}
                     onSelectTruck={handleSelectTruck}
                     onDeleteTruck={handleDeleteTruck}
                 />
