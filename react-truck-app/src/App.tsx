@@ -31,6 +31,8 @@ const App = () => {
     const [selectedTruck, setSelectedTruck] = useState<Truck | null>(null);
     const [products, setProducts] = useState<Product[]>(productsData);
     const [trucks, setTrucks] = useState<Truck[]>(trucksData);
+    const [showFullTruckError, setShowFullTruckError] = useState<boolean>(false);
+    const [showSelectTruckError, setShowSelectTruckError] = useState<boolean>(false);
 
     useEffect(() => {
         // Load data from local storage or API if needed
@@ -38,15 +40,27 @@ const App = () => {
 
     const handleAddProduct = (product: Product, quantity: number) => {
         if (selectedTruck) {
-            const updatedTruck = {
-                ...selectedTruck,
-                currentWeight:
-                    selectedTruck.currentWeight + product.weight * quantity,
-            };
-            setTrucks(
-                trucks.map((truck) => (truck.id === selectedTruck.id ? updatedTruck : truck))
-            );
-            setSelectedTruck(updatedTruck);
+            const updatedWeight = selectedTruck.currentWeight + product.weight * quantity;
+
+            if (updatedWeight <= selectedTruck.maxWeight) {
+                const updatedTruck = {
+                    ...selectedTruck,
+                    currentWeight:
+                        selectedTruck.currentWeight + product.weight * quantity,
+                };
+                setTrucks(
+                    trucks.map((truck) => (truck.id === selectedTruck.id ? updatedTruck : truck))
+                );
+                setSelectedTruck(updatedTruck);
+            }
+            else {
+                setShowFullTruckError(true);
+                setTimeout(() => setShowFullTruckError(false), 5000);
+            }
+        }
+        else {
+            setShowSelectTruckError(true);
+            setTimeout(() => setShowSelectTruckError(false), 5000);
         }
     };
 
@@ -80,9 +94,15 @@ const App = () => {
                     <div className="selected-truck-details">                        
                         <h2>Selected truck: {selectedTruck.name}</h2>
                         <p>
-                            Current Weight: {selectedTruck.currentWeight} kg / {selectedTruck.maxWeight} kg
-                        </p>                       
+                            Current Weight: {selectedTruck.currentWeight} / {selectedTruck.maxWeight} kg
+                        </p>
+                        {showFullTruckError && (
+                            <p color="red">Product was not added! This truck is full, decrease quantity or select another truck</p>
+                        )}
                     </div>                    
+                )}
+                {showSelectTruckError && (
+                    <p color="red">To add product select truck firstly!</p>
                 )}
             </header>
             <main>
