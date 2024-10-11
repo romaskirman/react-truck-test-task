@@ -18,7 +18,6 @@ const TruckList: React.FC<TruckListProps> = ({
 
     return (
         <div className="truck-list">
-            <h2>All trucks: </h2>
             {allTrucks.map(truck => (
                  <TruckDetails
                     truck={truck}

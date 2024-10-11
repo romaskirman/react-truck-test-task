@@ -98,24 +98,26 @@ const App = () => {
 
     return (
         <div className="app">
-            <header>
-                <button className="btn" onClick={handleAddTruck}>Add Truck</button>
-                {selectedTruck && (  
-                    <div>
-                        <TruckDetails
-                            truck={selectedTruck}
-                            selected={true}
-                            onSelectTruck={handleSelectTruck}
-                            onDeleteTruck={handleDeleteTruck}
-                            displaysOnHeader={true}
-                        />
-                    </div>                                  
-                )}
+            <header className="header">
+                <div className="header-info">
+                    <button className="btn" onClick={handleAddTruck}>Add Truck</button>
+                    {selectedTruck && (
+                        <div>
+                            <TruckDetails 
+                                truck={selectedTruck}
+                                selected={true}
+                                onSelectTruck={handleSelectTruck}
+                                onDeleteTruck={handleDeleteTruck}
+                                displaysOnHeader={true}
+                            />
+                        </div>                                  
+                        )}
+                </div>
                 {showSelectTruckError && (
                     <p style={{ color: 'red' }}>To add product select truck firstly!</p>
                 )}
             </header>
-            <main>
+            <main className="main-container">
                 <TruckList
                     allTrucks={trucks}
                     selectedTruck={selectedTruck}
@@ -124,7 +126,7 @@ const App = () => {
                 />
                 
                 <div className="product-catalog">
-                    <h2>Product Catalog</h2>
+                    <hr className="product-catalog-line"></hr>
                     <div className="product-list">
                         {products.map((product) => (
                             <ProductCard

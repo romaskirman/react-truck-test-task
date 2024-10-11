@@ -30,8 +30,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddProduct }) => {
                     value={quantity}
                     onChange={handleQuantityChange}
                 />
-                <button className="btn" onClick={handleAddProduct}>Add to Cart</button>
             </div>
+            <button className="btn" onClick={handleAddProduct}>Add to Cart</button>
         </div>
     );
 };

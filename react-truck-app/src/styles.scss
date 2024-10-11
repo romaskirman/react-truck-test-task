@@ -1,9 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-}
-
-.app {
+    color: white;
     background: darkslateblue;
 }
 
@@ -15,18 +13,76 @@
     font-size: 16px;
     padding: 3px;
     font-weight: 600;
+    max-height: 40px;
 }
 
 .truck-main-block {
+    display: flex;
+    flex-direction: column;
+}
 
+.truck-info {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .truck-details {
-    margin-right: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid white;
+    padding: 10px;
 }
 
 .calc-truck-percentage {
     height: 20px;
     width: 100px;
     border: 1px solid white;
+    text-align: center;
+    color: white;
+    margin-right: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.truck-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-catalog-line {
+    border-top: 1px solid white;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.weight-info {
+    margin-right: 20px;
 }

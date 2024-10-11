@@ -22,9 +22,9 @@ const TruckDetails: React.FC<TruckDetailsProps> = ({ truck, selected, onSelectTr
                 <h2>{truck.name} {selected && !displaysOnHeader && (
                     <span> - Selected </span>
                 )}</h2>
-                <div>
-                    <div className="calc-truck-percentage" style={{ backgroundImage: linearGradient }} >{truckPercentage}</div>                                    
-                    <p>
+                <div className="truck-info">
+                    <div className="calc-truck-percentage" style={{ backgroundImage: linearGradient }} >{truckPercentage}</div>
+                    <p className="weight-info">
                         Current Weight: {truck.currentWeight} kg / {truck.maxWeight} kg
                     </p>
                 </div>
