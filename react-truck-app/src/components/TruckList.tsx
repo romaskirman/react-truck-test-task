@@ -16,8 +16,6 @@ const TruckList: React.FC<TruckListProps> = ({
     onDeleteTruck,
 }) => {
 
-
-
     return (
         <div className="truck-list">
             <h2>All trucks: </h2>
@@ -27,6 +25,7 @@ const TruckList: React.FC<TruckListProps> = ({
                     selected={truck.id === selectedTruck?.id}
                     onSelectTruck={onSelectTruck}
                     onDeleteTruck={onDeleteTruck}
+                    displaysOnHeader={false}
                  />
             ))} 
             

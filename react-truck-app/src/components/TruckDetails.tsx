@@ -6,23 +6,35 @@ interface TruckDetailsProps {
     selected: boolean;
     onSelectTruck: (truck: Truck) => void;
     onDeleteTruck: (truckId: string) => void;
+    displaysOnHeader: boolean;
 }
 
-const TruckDetails: React.FC<TruckDetailsProps> = ({ truck, selected, onSelectTruck, onDeleteTruck }) => {
+const TruckDetails: React.FC<TruckDetailsProps> = ({ truck, selected, onSelectTruck, onDeleteTruck, displaysOnHeader }) => {
+
+    const truckPercentage = ((truck.currentWeight / truck.maxWeight) * 100).toFixed(0) + '%';
+    const truckFillColor = selected ? 'blue' : 'lightgreen';
+    const linearGradient = 'linear-gradient(to left, ' + truckFillColor + ' ' + truckPercentage + ', rgba(0,0,0,0) ' + truckPercentage + ')';
+
+
     return (
         <div className="truck-details">
-            <h2>Truck: {truck.name}</h2>
-            {selected && (
-                <p> Selected </p>
-            )}
-            <p>
-                Current Weight: {truck.currentWeight} kg / {truck.maxWeight} kg
-            </p>
+            <div className="truck-main-block">
+                <h2>{truck.name} {selected && !displaysOnHeader && (
+                    <span> - Selected </span>
+                )}</h2>
+                <div>
+                    <div className="calc-truck-percentage" style={{ backgroundImage: linearGradient }} >{truckPercentage}</div>                                    
+                    <p>
+                        Current Weight: {truck.currentWeight} kg / {truck.maxWeight} kg
+                    </p>
+                </div>
+            </div>
             {!selected && (
-                <button onClick={() => onSelectTruck(truck)}>Select Truck</button>
+                <button className="btn" onClick={() => onSelectTruck(truck)}>Select Truck</button>
             )}
-            <button onClick={() => onDeleteTruck(truck.id)}>Delete Truck</button>
-            {/* Display list of products in the truck here */}
+            {!displaysOnHeader && (
+                <button className="btn"  onClick={() => onDeleteTruck(truck.id)}>Delete Truck</button>
+            )}
         </div>
     );
 };

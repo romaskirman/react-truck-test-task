@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Truck, Product } from './types';
 import ProductCard from './components/ProductCard';
 import TruckList from './components/TruckList';
-//import './App.scss';
+import './styles.scss';
+import TruckDetails from './components/TruckDetails';
 
 const trucksData = [
     { id: 'truck1', name: 'Truck 1', maxWeight: 10000, currentWeight: 0 },
@@ -68,12 +69,21 @@ const App = () => {
         setSelectedTruck(truck);
     };
 
-    const handleCreateTruck = () => {
+    const handleAddTruck = () => {
 
-        const newTruckId = 'truck ' + (trucks.length + 1).toString();
+        let newTruckId: string;
+
+        if (trucks.length > 0) {
+            newTruckId = (Number(trucks[trucks.length - 1].id.charAt(trucks[trucks.length - 1].id.length - 1)) + 1).toString();
+
+        }
+        else {
+            newTruckId = '1';
+        }
+
         const newTruck: Truck = {
-            id: newTruckId,
-            name: 'Truck ' + (trucks.length + 1).toString(),
+            id: 'truck' + newTruckId,
+            name: 'Truck ' + newTruckId,
             maxWeight: 10000,
             currentWeight: 0,
         };
@@ -89,20 +99,20 @@ const App = () => {
     return (
         <div className="app">
             <header>
-                <button onClick={handleCreateTruck}>Create Truck</button>
-                {selectedTruck && (                    
-                    <div className="selected-truck-details">                        
-                        <h2>Selected truck: {selectedTruck.name}</h2>
-                        <p>
-                            Current Weight: {selectedTruck.currentWeight} / {selectedTruck.maxWeight} kg
-                        </p>
-                        {showFullTruckError && (
-                            <p color="red">Product was not added! This truck is full, decrease quantity or select another truck</p>
-                        )}
-                    </div>                    
+                <button className="btn" onClick={handleAddTruck}>Add Truck</button>
+                {selectedTruck && (  
+                    <div>
+                        <TruckDetails
+                            truck={selectedTruck}
+                            selected={true}
+                            onSelectTruck={handleSelectTruck}
+                            onDeleteTruck={handleDeleteTruck}
+                            displaysOnHeader={true}
+                        />
+                    </div>                                  
                 )}
                 {showSelectTruckError && (
-                    <p color="red">To add product select truck firstly!</p>
+                    <p style={{ color: 'red' }}>To add product select truck firstly!</p>
                 )}
             </header>
             <main>
