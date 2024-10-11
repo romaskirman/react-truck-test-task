@@ -100,7 +100,7 @@ const App = () => {
         <div className="app">
             <header className="header">
                 <div className="header-info">
-                    <button className="btn" onClick={handleAddTruck}>Add Truck</button>
+                    <button className="btn add-truck-btn" onClick={handleAddTruck}>Add Truck</button>
                     {selectedTruck && (
                         <div>
                             <TruckDetails 
