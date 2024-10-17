@@ -26,8 +26,7 @@ const TruckList: React.FC<TruckListProps> = ({
                     onDeleteTruck={onDeleteTruck}
                     displaysOnHeader={false}
                  />
-            ))} 
-            
+            ))}            
             
         </div>
     );
